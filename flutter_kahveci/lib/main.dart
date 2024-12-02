@@ -33,48 +33,42 @@ class BenimUyg extends StatelessWidget {
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 45.0),
-                  padding: EdgeInsets.all(10.0),
-                  color: Colors.brown[700],
-                  child: Row(
-                    children: [
-                      Icon(
+                  width: 300,
+                  child: Divider(
+                    //ekrandaki çizgiyi bu yapaar
+                    height: 30,
+                    color: Colors.brown[900],
+                  ),
+                ),
+                Card(
+                    //container yerine bunu kullanıyoruz
+                    margin: EdgeInsets.symmetric(horizontal: 45.0),
+                    color: Colors.brown[700],
+                    child: ListTile(
+                      //row yerine bunu kullanıyoruz daha pratik
+                      leading: Icon(
                         Icons.email,
                         color: Colors.white,
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
+                      title: Text(
                         'siparis@kahveci.com.tr',
                         style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
-                    ],
-                  ),
-                ),
+                    )),
                 SizedBox(
-                  height: 10.0,
+                  height: 8.0,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 45.0),
-                  padding: EdgeInsets.all(10.0),
-                  color: Colors.brown[700],
-                  child: Row(
-                    children: [
-                      Icon(
+                Card(
+                    margin: EdgeInsets.symmetric(horizontal: 45.0),
+                    color: Colors.brown[700],
+                    child: ListTile(
+                      leading: Icon(
                         Icons.phone,
                         color: Colors.white,
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '+90 258 555 00 00',
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      )
-                    ],
-                  ),
-                )
+                      title: Text('+90 258 555 00 00',
+                          style: TextStyle(fontSize: 15, color: Colors.white)),
+                    ))
               ],
             ),
           ),
