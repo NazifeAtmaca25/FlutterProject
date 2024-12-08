@@ -44,6 +44,28 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
     });
   }
 
+  List<String> corbaAdlari = [
+    "Mercimek çorbası",
+    "Tarhana çorbası",
+    "Tavuksuyu çorbası",
+    "Düğün çorbası",
+    "Yoğurtlu çorba"
+  ];
+  List<String> yemekAdlari = [
+    "Karnıyarık",
+    "Mantı",
+    "Kuru Faulye",
+    "İçli Köfte",
+    "Izgara Balık"
+  ];
+  List<String> tatliAdlari = [
+    "Kadayıf",
+    "Baklava",
+    "Sütlaç",
+    "Kazandibi",
+    "Dondurma"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -59,6 +81,15 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
               ),
             ),
           ),
+          Text(
+            corbaAdlari[corba_no - 1],
+            style: TextStyle(fontSize: 20),
+          ),
+          Container(
+              width: 200,
+              child: Divider(
+                height: 5,
+              )),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -68,6 +99,15 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
                   child: Image.asset('assets/yemek_$yemek_no.jpg')),
             ),
           ),
+          Text(
+            yemekAdlari[yemek_no - 1],
+            style: TextStyle(fontSize: 20),
+          ),
+          Container(
+              width: 200,
+              child: Divider(
+                height: 5,
+              )),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -76,7 +116,16 @@ class _YemekSayfasiState extends State<YemekSayfasi> {
                   onPressed: yemekleriYenile,
                   child: Image.asset('assets/tatli_$tatli_no.jpg')),
             ),
-          )
+          ),
+          Text(
+            tatliAdlari[tatli_no - 1],
+            style: TextStyle(fontSize: 20),
+          ),
+          Container(
+              width: 200,
+              child: Divider(
+                height: 5,
+              )),
         ],
       ),
     );
