@@ -24,10 +24,16 @@ class BenimUygulamam extends StatelessWidget {
   }
 }
 
-class YemekSayfasi extends StatelessWidget {
+class YemekSayfasi extends StatefulWidget {
+  @override
+  State<YemekSayfasi> createState() => _YemekSayfasiState();
+}
+
+class _YemekSayfasiState extends State<YemekSayfasi> {
   int corba_no = 1;
   int yemek_no = 1;
   int tatli_no = 1;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -37,11 +43,12 @@ class YemekSayfasi extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.yellow),
-                  onPressed: () {
-                    print("Çorba butonu tıklandı");
-                  },
-                  child: Image.asset('assets/corba_$corba_no.jpg')),
+                style: TextButton.styleFrom(backgroundColor: Colors.yellow),
+                onPressed: () {
+                  print("Çorba butonu tıklandı");
+                },
+                child: Image.asset('assets/corba_$corba_no.jpg'),
+              ),
             ),
           ),
           Expanded(
