@@ -78,7 +78,9 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                 padding: EdgeInsets.symmetric(horizontal: 6),
                 child: ElevatedButton(
                     onPressed: () {
-                      secimler.add(kDogru);
+                      setState(() {
+                        secimler.add(kDogru);
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(12),
