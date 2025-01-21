@@ -48,7 +48,10 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                     ),
                   ),
                 ))),
-        Row(
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 3,
+          runSpacing: 3,
           children: secimler,
         ),
         Expanded(
