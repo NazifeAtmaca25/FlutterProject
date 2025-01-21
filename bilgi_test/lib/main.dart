@@ -1,4 +1,5 @@
 import 'package:bilgi_test/constants.dart';
+import 'package:bilgi_test/test_veri.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,17 +29,41 @@ class SoruSayfasi extends StatefulWidget {
 
 class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> secimler = [];
-  List<String> sorular = [
-    "1.Titanic gelmiş geçmiş en büyük gemidir",
-    "2.Dünyadaki tavuk sayısı insan sayısından fazladır",
-    "3.Kelebeklerin ömrü bir gündür",
-    "4.Dünya düzdür",
-    "5.Kaju fıstığı aslında bir meyvenin sapıdır",
-    "6.Fatih Sultan Mehmet hiç patates yememiştir",
-    "7.Fransızlar 80 demek için, 4 - 20 der"
-  ];
-  List<bool> yanitlar = [false, true, false, false, true, true, true];
-  int soruSayisi = 0;
+  TestVeri testVeri = TestVeri();
+
+  void buttonFonksiyonu(bool secilenButon) {
+    if (testVeri.testBittiMi()) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Brova Testi Bitirdiniz!!'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Başa Dön'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    testVeri.testiSifirla();
+                    secimler = [];
+                  });
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      setState(() {
+        testVeri.getSoruYaniti() == secilenButon
+            ? secimler.add(kDogru)
+            : secimler.add(kYanlis);
+        testVeri.sonrakiSoru();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,7 +76,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                 padding: EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    sorular[soruSayisi],
+                    testVeri.getSoruMetni(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20.0,
@@ -75,12 +100,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                       padding: EdgeInsets.symmetric(horizontal: 6),
                       child: ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              yanitlar[soruSayisi] == false
-                                  ? secimler.add(kDogru)
-                                  : secimler.add(kYanlis);
-                              soruSayisi++;
-                            });
+                            buttonFonksiyonu(false);
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.all(12),
@@ -95,12 +115,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                 padding: EdgeInsets.symmetric(horizontal: 6),
                 child: ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        yanitlar[soruSayisi] == true
-                            ? secimler.add(kDogru)
-                            : secimler.add(kYanlis);
-                        soruSayisi++;
-                      });
+                      buttonFonksiyonu(true);
                     },
                     style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.all(12),
