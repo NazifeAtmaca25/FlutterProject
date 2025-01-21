@@ -28,6 +28,17 @@ class SoruSayfasi extends StatefulWidget {
 
 class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> secimler = [];
+  List<String> sorular = [
+    "1.Titanic gelmiş geçmiş en büyük gemidir",
+    "2.Dünyadaki tavuk sayısı insan sayısından fazladır",
+    "3.Kelebeklerin ömrü bir gündür",
+    "4.Dünya düzdür",
+    "5.Kaju fıstığı aslında bir meyvenin sapıdır",
+    "6.Fatih Sultan Mehmet hiç patates yememiştir",
+    "7.Fransızlar 80 demek için, 4 - 20 der"
+  ];
+  List<bool> yanitlar = [false, true, false, false, true, true, true];
+  int soruSayisi = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,7 +51,7 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                 padding: EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    "Bilgi Testi Soruları",
+                    sorular[soruSayisi],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20.0,
@@ -65,7 +76,10 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                       child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              secimler.add(kYanlis);
+                              yanitlar[soruSayisi] == false
+                                  ? secimler.add(kDogru)
+                                  : secimler.add(kYanlis);
+                              soruSayisi++;
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -82,7 +96,10 @@ class _SoruSayfasiState extends State<SoruSayfasi> {
                 child: ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        secimler.add(kDogru);
+                        yanitlar[soruSayisi] == true
+                            ? secimler.add(kDogru)
+                            : secimler.add(kYanlis);
+                        soruSayisi++;
                       });
                     },
                     style: ElevatedButton.styleFrom(
