@@ -52,4 +52,4 @@ class MyContainer extends StatelessWidget {
 }
 
 TextStyle kMetinStili =
-    TextStyle(fontSize: 25, color: Colors.black54, fontWeight: FontWeight.bold);
+    TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.bold);

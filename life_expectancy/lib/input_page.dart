@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:life_expectancy/result_page.dart';
+import 'package:life_expectancy/user_data.dart';
 import 'package:life_expectancy/widgets.dart';
 
 class InputPage extends StatefulWidget {
@@ -12,6 +14,7 @@ class _InputPageState extends State<InputPage> {
   double icilenSigara = 0.0;
   double yapilanSpor = 0.0;
   int boy = 170;
+  int kilo = 60;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,56 +33,12 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                     child: MyContainer(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      RotatedBox(
-                          quarterTurns: -1,
-                          child: Text(
-                            "Boy",
-                            style: kMetinStili,
-                          )),
-                      RotatedBox(
-                          quarterTurns: -1,
-                          child: Text(
-                            boy.toString(),
-                            style: kMetinStili,
-                          )),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              setState(() {
-                                boy++;
-                              });
-                            },
-                            child: Text(
-                              "+",
-                              style: kMetinStili,
-                            ),
-                            style: OutlinedButton.styleFrom(
-                                side: BorderSide(color: Colors.blue)),
-                          ),
-                          OutlinedButton(
-                            onPressed: () {
-                              setState(() {
-                                boy--;
-                              });
-                            },
-                            child: Text(
-                              "-",
-                              style: kMetinStili,
-                            ),
-                            style: OutlinedButton.styleFrom(
-                                side: BorderSide(color: Colors.blue)),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
+                  child: buildRowOutLineButton("Boy"),
                 )),
-                Expanded(child: MyContainer()),
+                Expanded(
+                    child: MyContainer(
+                  child: buildRowOutLineButton("Kilo"),
+                )),
               ],
             ),
           ),
@@ -162,8 +121,76 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
+          TextButton(
+              style: TextButton.styleFrom(backgroundColor: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultPage(UserData(
+                            cinsiyetSecimi: cinsiyetSecimi,
+                            icilenSigara: icilenSigara,
+                            yapilanSpor: yapilanSpor,
+                            boy: boy,
+                            kilo: kilo))));
+              },
+              child: Text(
+                "HESAPLA",
+                style: kMetinStili,
+              ))
         ],
       ),
+    );
+  }
+
+  Row buildRowOutLineButton(String label) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RotatedBox(
+            quarterTurns: -1,
+            child: Text(
+              label,
+              style: kMetinStili,
+            )),
+        RotatedBox(
+            quarterTurns: -1,
+            child: Text(
+              label == "Boy" ? boy.toString() : kilo.toString(),
+              style: kMetinStili,
+            )),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            OutlinedButton(
+              onPressed: () {
+                setState(() {
+                  label == "Boy" ? boy++ : kilo++;
+                });
+              },
+              child: Text(
+                "+",
+                style: kMetinStili,
+              ),
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Colors.blue)),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                setState(() {
+                  label == "Boy" ? boy-- : kilo--;
+                });
+              },
+              child: Text(
+                "-",
+                style: kMetinStili,
+              ),
+              style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: Colors.blue)),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
