@@ -54,7 +54,10 @@ class TurkBayragi extends StatelessWidget {
             kirmiziKutu,
             Positioned(top: 0.25 * g, left: 0.25 * g, child: daire),
             Positioned(top: 0.3 * g, left: 0.3625 * g, child: miniDaire),
-            Positioned(left: 0.7 * g, top: 0.375 * g, child: star)
+            Positioned(
+                left: 0.7 * g,
+                top: 0.375 * g,
+                child: RotatedBox(quarterTurns: -1, child: star))
           ],
         ),
       ),
