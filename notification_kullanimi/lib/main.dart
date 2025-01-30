@@ -30,20 +30,24 @@ class Anasayfa extends StatefulWidget {
 }
 
 class _AnasayfaState extends State<Anasayfa> {
-  var flp = FlutterLocalNotificationsPlugin();
+  var flp =
+      FlutterLocalNotificationsPlugin(); //Bu nesne bildirimleri yönetmek için kullanılır.
 
   Future<void> kurulum() async {
-    var androidAyari =
-        const AndroidInitializationSettings("@mipmap/ic_launcher");
+    var androidAyari = const AndroidInitializationSettings(
+        "@mipmap/ic_launcher"); //Android tarafındaki bildirimlerin nasıl çalışacağını belirler.
     var iosAyari = const DarwinInitializationSettings();
     var kurulumAyari =
         InitializationSettings(android: androidAyari, iOS: iosAyari);
     await flp.initialize(kurulumAyari,
         onDidReceiveBackgroundNotificationResponse: bildirimSecilme);
+    //onDidReceiveBackgroundNotificationResponse, arka planda bir bildirime tıklandığında çalıştırılacak fonksiyonu belirler. Burada bildirimSecilme fonksiyonu atanmıştır.
   }
 
   Future<void> bildirimSecilme(NotificationResponse notificatinResponse) async {
-    var payload = notificatinResponse.payload;
+    //kullanıcı bir bildirime tıkladığında çalışır ve bildirimin yükünü (payload) yazdırır.
+    var payload = notificatinResponse
+        .payload; // NotificationResponse nesnesinden bildirimin içeriğini (payload) alır.
     if (payload != null) {
       print("Bildirim seçildi: $payload");
     }
