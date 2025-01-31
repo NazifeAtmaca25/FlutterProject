@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() {
   runApp(const MyApp());
@@ -59,6 +61,45 @@ class _AnasayfaState extends State<Anasayfa> {
     kurulum();
   }
 
+  Future<void> bildirimGoster() async {
+    var androidBildirimDetay = const AndroidNotificationDetails(
+      "kanal id",
+      "kanal başlık",
+      channelDescription: "kanal açıklama",
+      priority: Priority.high,
+      importance: Importance.max,
+      icon: '@mipmap/ic_launcher',
+    );
+    var iosBildirimDetay = const DarwinNotificationDetails();
+    var bildirimDetay = NotificationDetails(
+        android: androidBildirimDetay, iOS: iosBildirimDetay);
+    await flp.show(0, "Başlık", "İçerik", bildirimDetay,
+        payload: "Payload İçerik");
+  }
+
+  Future<void> bildirimGecikmeliGoster() async {
+    var androidBildirimDetay = const AndroidNotificationDetails(
+      "kanal id",
+      "kanal başlık",
+      channelDescription: "kanal açıklama",
+      priority: Priority.high,
+      importance: Importance.max,
+      icon: '@mipmap/ic_launcher',
+    );
+    var iosBildirimDetay = const DarwinNotificationDetails();
+    var bildirimDetay = NotificationDetails(
+        android: androidBildirimDetay, iOS: iosBildirimDetay);
+    tz.initializeTimeZones();
+    var gecikme = tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10));
+
+    await flp.zonedSchedule(
+        0, "Başlık Gecikmeli", "İçerik Gecikmeli", gecikme, bildirimDetay,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidScheduleMode: AndroidScheduleMode.exact,
+        payload: "Payload");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,11 +112,16 @@ class _AnasayfaState extends State<Anasayfa> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                bildirimGoster();
+              },
               child: Text("Bildirim Oluştur"),
             ),
             ElevatedButton(
-                onPressed: () {}, child: Text("Bildirim Oluştur (Gecikmeli)"))
+                onPressed: () {
+                  bildirimGecikmeliGoster();
+                },
+                child: Text("Bildirim Oluştur (Gecikmeli)"))
           ],
         ),
       ),
