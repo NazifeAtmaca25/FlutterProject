@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:json_parse/Kisiler.dart';
 import 'package:json_parse/Mesajlar.dart';
 
 void main() {
@@ -45,10 +46,35 @@ class _MyHomePageState extends State<MyHomePage> {
     print("Mesaj içerik: ${mesaj.mesaj_icerik}");
   }
 
+  void kisilerParse() {
+    //tek array
+    String strVeri =
+        '{"kisiler":[{"kisi_id":"1","kisi_ad":"Ahmet","kisi_tel":"123123"},{"kisi_id":"2","kisi_ad":"Mehmet","kisi_tel":"987987"}]}';
+    var jsonVeri =
+        json.decode(strVeri); //string veriyi json yapısına dönüştürür.
+    var jsonArray = jsonVeri["kisiler"]
+        as List; /*json veri içindeki parse etmek istediğimiz
+     alanı alabilmek içinismi ile erişiyoruz.*/
+    List<Kisiler> kisilerListesi = jsonArray
+        .map((jsonArrayNesnesi) => Kisiler.fromJson(jsonArrayNesnesi))
+        .toList();
+    /*Json içindeki array Kisiler nesnelerine dönüştürüp liste haline getirme
+      jsonArrayNesnesi: {"kisi_id":"1","kisi_ad":"ahmet","kisi_tel":"123123"}
+      Listenin içindeki her bir nesneyi temsil eder.*/
+
+    for (var k in kisilerListesi) {
+      print("-----------------------------");
+      print("Kisi id: ${k.kisi_id}");
+      print("Kisi id: ${k.kisi_ad}");
+      print("Kisi id: ${k.kisi_tel}");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    mesajParse();
+    //mesajParse();
+    kisilerParse();
   }
 
   @override
