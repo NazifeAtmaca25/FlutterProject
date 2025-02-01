@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:json_parse/Kisiler.dart';
+import 'package:json_parse/KisilerCevap.dart';
 import 'package:json_parse/Mesajlar.dart';
 
 void main() {
@@ -70,11 +71,31 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void kisilerCevapParse() {
+    //karışık veri
+    String strVeri =
+        '{"success":1,"kisiler":[{"kisi_id":"1","kisi_ad":"Ahmet","kisi_tel":"123123"},{"kisi_id":"2","kisi_ad":"Mehmet","kisi_tel":"987987"}]}';
+    var jsonVeri = json.decode(strVeri);
+    var kisilerCevap = KisilerCevap.fromJson(jsonVeri);
+
+    print("Success: ${kisilerCevap.success}");
+
+    List<Kisiler> kisilerListesi = kisilerCevap.kisilerListesi;
+
+    for (var k in kisilerListesi) {
+      print("-----------------------------");
+      print("Kisi id: ${k.kisi_id}");
+      print("Kisi id: ${k.kisi_ad}");
+      print("Kisi id: ${k.kisi_tel}");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     //mesajParse();
-    kisilerParse();
+    //kisilerParse();
+    kisilerCevapParse();
   }
 
   @override
