@@ -1,9 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:json_parse/FilmlerCevap.dart';
 import 'package:json_parse/Kisiler.dart';
 import 'package:json_parse/KisilerCevap.dart';
 import 'package:json_parse/Mesajlar.dart';
+
+import 'Filmler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,12 +93,43 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  void filmlerCevapParse() {
+    //Karışık veri (Foreign key)
+    String srtVeri =
+        '{"success":1,"filmler":[{"film_id":"1","film_ad":"Interstellar"'
+        ',"film_yil":"2015","film_resim":"interstellar.png",'
+        '"kategori":{"kategori_id":"4","kategori_ad":"Bilim Kurgu"},'
+        '"yonetmen":{"yonetmen_id":"1","yonetmen_ad":"Nolan"}},'
+        '{"film_id":"3","film_ad":"The Pianist"'
+        ',"film_yil":"2002","film_resim":"pianist.png",'
+        '"kategori":{"kategori_id":"3","kategori_ad":"dram"},'
+        '"yonetmen":{"yonetmen_id":"4","yonetmen_ad":"Polanski"}}]}';
+
+    var jsonVeri = json.decode(srtVeri);
+    var filmlerCevap = FilmlerCevap.fromJson(jsonVeri);
+    int success = filmlerCevap.success;
+
+    List<Filmler> filmlerListesi = filmlerCevap.filmlerListesi;
+
+    print("Success: $success");
+    for (var f in filmlerListesi) {
+      print("-----------------------------");
+      print("Film id: ${f.film_id}");
+      print("Film ad: ${f.film_ad}");
+      print("Film yıl: ${f.film_yil}");
+      print("Film resim: ${f.film_resim}");
+      print("Film kategori: ${f.kategori.kategori_ad}");
+      print("Film yonetmen: ${f.yonetmen.yonetmen_ad}");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     //mesajParse();
     //kisilerParse();
-    kisilerCevapParse();
+    //kisilerCevapParse();
+    filmlerCevapParse();
   }
 
   @override
